@@ -1,0 +1,16 @@
+z=read.csv("C:\\Users\\edaad\\Downloads\\dataunina.csv",header=T)
+library(tidyverse)
+head(z)
+for(i in 1:4){
+z[,i]=as.numeric(z[,i])
+}
+X=cbind(Const=rep(1,length(z[,1])),z[,2:4])
+for(i in 1:4){
+X[,i]=as.numeric(X[,i])
+}
+view(X)
+Y=z[,1]
+OLS= solve(t(as.matrix(X))%*%as.matrix(X))%*%t(as.matrix(X))%*%as.matrix(Y)
+resi=Y-as.matrix(X)%*%OLS
+v=(var(resi))
+vari=as.numeric(v)*as.matrix(solve(t(as.matrix(X))%*%as.matrix(X)))
